@@ -8,8 +8,11 @@ public class Main {
             String input = scanner.nextLine();
             if("exit 0".equals(input)) {
             	System.exit(0);
+            } else if (null != input && input.startsWith("echo ")) {
+            	System.out.println(input.replace("echo ", ""));
+            } else {
+                System.out.println(input + ": command not found");
             }
-            System.out.println(input + ": command not found");
         } while (true);
         
     }
