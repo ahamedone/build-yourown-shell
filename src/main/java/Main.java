@@ -29,7 +29,16 @@ public class Main {
                     }
             	}
             } else {
-                System.out.println(input + ": command not found");
+                String command = input.split(" ")[0];
+                String path = getPath(command);
+                if (path == null) {
+                    System.out.println(command + ": command not found");
+                } else {
+                    String fullPath = path + input.substring(command.length());
+                    Process p = Runtime.getRuntime().exec(input.split(" "));
+                    p.getInputStream().transferTo(System.out);
+                }
+                
             }
         } while (true);
         
