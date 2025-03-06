@@ -10,7 +10,7 @@ public class Main {
         	System.out.print("$ ");
         	Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            String[] typeCommands = {"echo", "exit", "type"};
+            String[] typeCommands = {"echo", "exit", "type", "pwd"};
             
             if("exit 0".equals(input)) {
             	System.exit(0);
@@ -28,6 +28,9 @@ public class Main {
                         System.out.println(inputText + ": not found");
                     }
             	}
+            } else if (null != input && (input.trim().equals("pwd"))){
+                String directoryName = System.getProperty("user.dir");
+                System.out.println(directoryName);
             } else {
                 String command = input.split(" ")[0];
                 String path = getPath(command);
