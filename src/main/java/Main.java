@@ -2,20 +2,29 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        String directoryName = System.getProperty("user.dir");
         do {
         	System.out.print("$ ");
         	Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            String[] typeCommands = {"echo", "exit", "type", "pwd"};
+            String[] typeCommands = {"echo", "exit", "type", "pwd", "cd"};
             
             if("exit 0".equals(input)) {
             	System.exit(0);
             } else if (null != input && input.startsWith("echo ")) {
             	System.out.println(input.replace("echo ", ""));
+            } else if (null != input && input.startsWith("cd ")) {
+                String path = input.replace("cd ", "");
+                if(Files.isDirectory(Path.of(path))){
+                    directoryName = path;
+                } else {
+                    System.out.println(input.replace("cd ", "") + ": No such file or directory");
+                }
             } else if (null != input && (input.startsWith("type"))) {
         		String inputText = input.substring(5);
             	if(Arrays.asList(typeCommands).contains(inputText)) {
@@ -29,7 +38,6 @@ public class Main {
                     }
             	}
             } else if (null != input && (input.trim().equals("pwd"))){
-                String directoryName = System.getProperty("user.dir");
                 System.out.println(directoryName);
             } else {
                 String command = input.split(" ")[0];
