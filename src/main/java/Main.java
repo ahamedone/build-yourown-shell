@@ -19,6 +19,10 @@ public class Main {
                 case "type" -> handleTypeCommand(userCommands[1]);
                 case "pwd"  -> System.out.println(directoryName);
                 case "cd"   -> {
+                    if(userCommands[1].contains("~")){
+                        String homeDirectory = System.getenv("HOME");
+                        userCommands[1] = userCommands[1].replace("~", homeDirectory);
+                    }
                     String path = getAbsolutePath(userCommands[1], directoryName);
                     if(Files.isDirectory(Path.of(path))){
                         directoryName = Path.of(path).normalize().toString();
